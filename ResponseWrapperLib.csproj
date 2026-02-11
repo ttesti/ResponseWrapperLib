@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+	<TargetFramework>net8.0</TargetFramework>
+	<ImplicitUsings>enable</ImplicitUsings>
+	<Nullable>disable</Nullable>
+	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+	<Title> Global Response Library</Title>
+	<PackageId>ResponseWrapperLib</PackageId>
+	<Authors>Thomas M Testi</Authors>
+	<Company> Blue Wolf Enterprises LLC.</Company>
+	<Description>This package includes response wrapper that centalize responses from services</Description>
+	<SignAssembly>true</SignAssembly>
+	<PackageProjectUrl>https://bluewolfenterprisesllc.com/</PackageProjectUrl>
+	<PackageRequiredLicenseAcceptance>true</PackageRequiredLicenseAcceptance>
+  </PropertyGroup>
+
+</Project>

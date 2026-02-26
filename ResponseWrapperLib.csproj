@@ -18,8 +18,4 @@
 	<PackageRequiredLicenseAcceptance>true</PackageRequiredLicenseAcceptance>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\Responses\" />
-  </ItemGroup>
-
 </Project>

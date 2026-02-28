@@ -1,0 +1,63 @@
+trigger:
+  branches:
+    include:
+      - main   # your repo branch is main (not master)
+
+pool:
+  vmImage: "windows-latest"
+
+variables:
+  buildConfiguration: "Release"
+  packageOutputPath: "$(Build.ArtifactStagingDirectory)/packages"
+
+  # Semantic Versioning
+  majorVersion: 1
+  minorVersion: 0
+  patchVersion: $(Build.BuildId)
+  packageVersion: "$(majorVersion).$(minorVersion).$(patchVersion)"
+
+stages:
+- stage: BuildAndPublish
+  displayName: "Build, Pack, and Publish NuGet Package"
+  jobs:
+  - job: BuildJob
+    displayName: "Build, Pack, and Push NuGet Package"
+    steps:
+    - checkout: self
+      clean: true
+
+    - task: NuGetToolInstaller@1
+      displayName: "Install NuGet"
+
+    - task: NuGetCommand@2
+      displayName: "Restore NuGet Packages"
+      inputs:
+        command: "restore"
+        restoreSolution: "**/*.sln"
+
+    - task: DotNetCoreCLI@2
+      displayName: "Build Project"
+      inputs:
+        command: "build"
+        projects: "**/*.csproj"
+        arguments: "--configuration $(buildConfiguration)"
+
+    - task: DotNetCoreCLI@2
+      displayName: "Pack Project as NuGet Package"
+      inputs:
+        command: "pack"
+        packagesToPack: "**/*.csproj"
+        configuration: "$(buildConfiguration)"
+        outputDir: "$(packageOutputPath)"
+        arguments: "-p:PackageVersion=$(packageVersion)"
+
+    - task: NuGetAuthenticate@1
+      displayName: "Authenticate to Azure Artifacts"
+
+    - task: NuGetCommand@2
+      displayName: "Publish NuGet Package to Azure Artifacts"
+      inputs:
+        command: "push"
+        packagesToPush: "$(packageOutputPath)/**/*.nupkg;!$(packageOutputPath)/**/*.symbols.nupkg"
+        nuGetFeedType: "internal"
+        publishVstsFeed: "ac09b25e-6f84-4ce9-822b-fae3a2f9b9ae/f715b267-8fb5-46e3-be89-27937cb4bcd8"

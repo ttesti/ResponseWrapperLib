@@ -9,7 +9,7 @@
 	<Nullable>disable</Nullable>
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<Title> Global Response Library</Title>
-	<PackageId>ResponseWrapperLib</PackageId>
+	<PackageId>BlueWolf.ResponseWrapperLib</PackageId>
 	<Authors>Thomas M Testi</Authors>
 	<Company> Blue Wolf Enterprises LLC.</Company>
 	<Description>This package includes response wrapper that centalize responses from services</Description>
